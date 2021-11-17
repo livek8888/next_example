@@ -5,8 +5,9 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import Date from '../components/date'
 import {getSortedPostsData} from '../lib/posts'
+import {GetStaticProps} from "next";
 
-export default function Home({ allPostsData }) {
+export default function Home({allPostsData}) {
     return (
         <Layout home>
             {/* Keep the existing code here */}
@@ -15,14 +16,14 @@ export default function Home({ allPostsData }) {
             <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
                 <h2 className={utilStyles.headingLg}>Blog</h2>
                 <ul className={utilStyles.list}>
-                    {allPostsData.map(({ id, date, title }) => (
+                    {allPostsData.map(({id, date, title}) => (
                         <li className={utilStyles.listItem} key={id}>
                             <Link href={`/posts/${id}`}>
                                 <a>{title}</a>
                             </Link>
-                            <br />
+                            <br/>
                             <small className={utilStyles.lightText}>
-                                <Date dateString={date} />
+                                <Date dateString={date}/>
                             </small>
                         </li>
                     ))}
@@ -32,7 +33,7 @@ export default function Home({ allPostsData }) {
     )
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<object> {
     const allPostsData = getSortedPostsData()
     return {
         props: {
